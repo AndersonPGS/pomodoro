@@ -9,6 +9,8 @@ Time managment tool for Windows and OS X based on [Pomodoro Technique](https://e
 
 
 ## Features
+
+- DARK MODE 🔥
 - Alerts
 - Customize work/relax time
 - Nice spinner provided by [kottenator](https://github.com/kottenator/jquery-circle-progress)
