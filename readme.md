@@ -2,7 +2,7 @@
 
 Time managment tool for Windows and OS X based on [Pomodoro Technique](https://en.wikipedia.org/wiki/Pomodoro_Technique). Build with love and [electron](https://github.com/atom/electron).
 
-![Here may be screenshot](screenshot.png)
+![Here may be screenshot](https://i.imgur.com/Ig99sCZ.png)
 
 ## Features
 - Alerts
