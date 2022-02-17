@@ -26,21 +26,23 @@ let windowState;
 let mb = menubar({
 	dir: path.join(__dirname, '/src'),
 	preloadWindow: true,
-	tooltip: 'Pomodoro timer',
+	tooltip: 'Pomodoro',
 	browserWindow: {
 		height: 330,
 		width: 340,
 		webPreferences: {
 			nodeIntegration: true
-	}
+		}
 	},
 	icon: path.join(__dirname, icon)
 });
 
 mb.app.allowRendererProcessReuse = true;
 
-let autolauncher = new AutoLaunch({ name: 'Pomodoro',
-mac: { useLaunchAgent: true } });
+let autolauncher = new AutoLaunch({
+	name: 'Pomodoro',
+	mac: { useLaunchAgent: true }
+});
 
 getConfig();
 
@@ -77,7 +79,7 @@ mb.on('after-show', () => {
 	}
 });
 
-global.timer.onTime(function(time) {
+global.timer.onTime(function (time) {
 	if (showTimer) {
 		if (
 			time.ms !== workTimer
@@ -93,7 +95,7 @@ global.timer.onTime(function(time) {
 	mb.window.webContents.send('update-timer', getProgress());
 });
 
-global.timer.onDone(function() {
+global.timer.onDone(function () {
 	mb.window.webContents.send('end-timer');
 
 	if (isRelaxTime) {
@@ -113,26 +115,26 @@ global.timer.onDone(function() {
 	global.pomodoroCount = pomodoroCount;
 });
 
-ipcMain.on('reset-timer', function() {
+ipcMain.on('reset-timer', function () {
 	global.timer.reset(workTimer);
 	mb.tray.setTitle('');
 	global.progress = getProgress();
 	mb.window.webContents.send('update-timer', 0);
 });
 
-ipcMain.on('toggle-timer', function() {
+ipcMain.on('toggle-timer', function () {
 	global.timer.startstop();
 	mb.window.webContents.send('update-timer', getProgress());
 	if (global.timer.isStopped()) mb.tray.setTitle('Paused');
 });
 
-ipcMain.on('settings-updated', function() {
+ipcMain.on('settings-updated', function () {
 	getConfig();
 
 	mb.window.webContents.send('update-timer', getProgress());
 });
 
-ipcMain.on('request-config', function(event) {
+ipcMain.on('request-config', function (event) {
 	getConfig();
 
 	event.returnValue = {
@@ -144,7 +146,7 @@ ipcMain.on('request-config', function(event) {
 	};
 });
 
-ipcMain.on('quit', function() {
+ipcMain.on('quit', function () {
 	mb.app.quit();
 });
 
@@ -160,7 +162,7 @@ function getConfig() {
 		launchOnStartup = data.launchOnStartup;
 
 		(launchOnStartup ? autolauncher.enable() : autolauncher.disable()).catch(
-			function(err) {
+			function (err) {
 				dialog.showErrorBox(
 					'Error on adding launch on startup functionality',
 					`Error: ${err}`
