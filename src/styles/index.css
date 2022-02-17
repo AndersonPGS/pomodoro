@@ -1,5 +1,22 @@
+.window {
+  background-color: #0B0A10;
+}
+
 .header {
   width: 100%;
+}
+
+.icon {
+  color: aliceblue;
+}
+
+span, p, strong {
+  color: aliceblue;
+}
+
+
+.pomodoro {
+  filter: invert(100%);
 }
 
 #settingsBtn {
@@ -9,6 +26,7 @@
   cursor: pointer;
   display: inline-block;
   opacity: 0.4;
+  transition: all .3s ease;
 }
 
 #settingsBtn:hover {
@@ -18,7 +36,7 @@
 img.pomodoro {
   display: inline-block;
   margin-left: 10px;
-  margin-top: 5px;
+  margin-top: 7px;
   opacity: 0.3;
 }
 
@@ -41,10 +59,48 @@ div.timer strong {
   left: 0;
   width: 100%;
   line-height: 40px;
-  font-size: 24px;
+  font-size: 32px;
+  opacity: .7;
+  transition: all .4s ease;
+}
+
+div.timer strong:hover{
+  opacity: 1;
 }
 
 div.timer canvas {
   cursor: pointer;
   vertical-align: top;
+}
+
+.toolbar {
+  background-color: #0B0A10;
+}
+
+#resetBtn {
+  background-color: #0B0A10;
+  border-radius: 10px;
+  border: #272ab0 1px solid;
+  color: #272ab0;
+  transition: all .2s ease-in;
+}
+
+#resetBtn:hover {
+  background-color: #272ab0;
+  border-radius: 50px;
+  color: aliceblue;
+}
+
+#quitBtn {
+  background-color: #0B0A10;
+  border-radius: 10px;
+  border: #c2185b 1px solid;
+  color: #c2185b;
+  transition: all .2s ease-in;
+}
+
+#quitBtn:hover {
+  background-color: #c2185b;
+  border-radius: 50px;
+  color: aliceblue;
 }

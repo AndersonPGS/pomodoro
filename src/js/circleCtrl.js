@@ -4,9 +4,9 @@ const modes = ['relax', 'work', 'pause'];
 class CircleController {
   constructor(selector, options = {}) {
     this.element = $(selector);
-    this.workGradient = options.workGradient || ['blue', 'skyblue'];
-    this.relaxGradient = options.relaxGradient || ['orange', 'yellow'];
-    this.pauseGradient = options.pauseGradient || ['gray', 'lightgray'];
+    this.workGradient = options.workGradient || ['#60C689', '#57DCBE'];
+    this.relaxGradient = options.relaxGradient || ['#57ACDC', '#276BB0'];
+    this.pauseGradient = options.pauseGradient || ['#E91E63', '#C2185B'];
 
     this.element
       .circleProgress({
@@ -30,13 +30,13 @@ class CircleController {
 
   set mode(newMode) {
     if (modes.indexOf(newMode) > -1) {
-      this.element.circleProgress({fill: { gradient: this[newMode + 'Gradient'] }});
+      this.element.circleProgress({ fill: { gradient: this[newMode + 'Gradient'] } });
     } else {
       throw new Error(
         'Specified mode is incorrect, expecting '
-          + modes
-          + ' but got '
-          + newMode
+        + modes
+        + ' but got '
+        + newMode
       );
     }
   }
@@ -55,7 +55,7 @@ class CircleController {
 global.CircleController = CircleController;
 
 function overrideDefaults() {
-  $.circleProgress.defaults.setValue = function(newValue) {
+  $.circleProgress.defaults.setValue = function (newValue) {
     if (this.animation) {
       let canvas = $(this.canvas),
         q = canvas.queue();

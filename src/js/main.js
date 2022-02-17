@@ -16,11 +16,11 @@ require('../bower_components/jquery-circle-progress/dist/circle-progress.js')();
 let settingsWindow;
 let circleTimer;
 
-globalShortcut.register('ctrl+alt+s', function() {
+globalShortcut.register('ctrl+alt+s', function () {
 	ipcRenderer.send('toggle-timer');
 });
 
-ipcRenderer.on('update-timer', function(event, value) {
+ipcRenderer.on('update-timer', function (event, value) {
 	if (remote.getGlobal('timer').isRunning()) {
 		if (remote.getGlobal('isRelaxTime')) {
 			circleTimer.mode = 'relax';
@@ -34,7 +34,7 @@ ipcRenderer.on('update-timer', function(event, value) {
 	circleTimer.value = value;
 });
 
-ipcRenderer.on('end-timer', function() {
+ipcRenderer.on('end-timer', function () {
 	const isRelaxTime = remote.getGlobal('isRelaxTime');
 
 	circleTimer.value = 1;
@@ -49,7 +49,7 @@ ipcRenderer.on('end-timer', function() {
 			buttons: ['OK'],
 			noLink: true
 		},
-		function() {
+		function () {
 			if (isRelaxTime) {
 				circleTimer.mode = 'work';
 			} else {
@@ -62,13 +62,13 @@ ipcRenderer.on('end-timer', function() {
 	);
 });
 
-$(document).ready(function() {
+$(document).ready(function () {
 	retinajs();
-	$('div.timer').on('click', function() {
+	$('div.timer').on('click', function () {
 		ipcRenderer.send('toggle-timer');
 	});
 
-	$('#settingsBtn').on('click', function() {
+	$('#settingsBtn').on('click', function () {
 		if (settingsWindow) {
 			settingsWindow.show();
 		} else {
@@ -76,24 +76,24 @@ $(document).ready(function() {
 		}
 	});
 
-	$('#quitBtn').on('click', function() {
+	$('#quitBtn').on('click', function () {
 		if (settingsWindow) {
 			settingsWindow.close();
 		}
 		ipcRenderer.send('quit');
 	});
 
-	$('#resetBtn').on('click', function() {
+	$('#resetBtn').on('click', function () {
 		circleTimer.reset();
 		ipcRenderer.send('reset-timer');
 	});
 
 	circleTimer = new CircleController('.timer', {
-		onAnimation: function() {
+		onAnimation: function () {
 			let timer = remote.getGlobal('timer');
 			let text = timer.isRunning()
 				? timeFormat(new Date(timer.ms))
-				: 'Click to start';
+				: 'START';
 
 			$(this)
 				.find('strong')
@@ -114,7 +114,7 @@ function createWindow() {
 		y: windowState.y,
 		webPreferences: {
 			nodeIntegration: true
-	}
+		}
 	});
 
 	windowState.manage(win);

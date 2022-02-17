@@ -23,7 +23,7 @@ longRelaxTimer = configs.longRelaxTimer;
 showTimer = configs.showTimer;
 launchOnStartup = configs.launchOnStartup;
 
-$(document).ready(function() {
+$(document).ready(function () {
 
 	/*
 	 * Set sliders and checkbox with default value
@@ -37,7 +37,7 @@ $(document).ready(function() {
 	/*
 	 * Save settings
 	 */
-	$('#saveBtn').on('click', function() {
+	$('#saveBtn').on('click', function () {
 		fs.writeFile(
 			app.getPath('userData') + '/config.json',
 			JSON.stringify({
@@ -47,7 +47,7 @@ $(document).ready(function() {
 				showTimer: $('.showTimer').prop('checked'),
 				launchOnStartup: $('.launch').prop('checked')
 			}),
-			function(err) {
+			function (err) {
 				if (err) {
 					dialog.showErrorBox('Failed to save settings', err);
 				} else {
@@ -61,24 +61,24 @@ $(document).ready(function() {
 	/*
 	 * Exit from settings without settings(Cancel action)
 	 */
-	$('#cancelBtn').on('click', function() {
-        let options = {
-				type: 'question',
-				title: 'Warning',
-				message: 'Settings will not save! Are you sure?',
-				buttons: ['Yes', 'No'],
-                defaultId: 1,
-                cancelId: 1
-			}
+	$('#cancelBtn').on('click', function () {
+		let options = {
+			type: 'question',
+			title: 'Warning',
+			message: 'Settings will not save! Are you sure?',
+			buttons: ['Yes', 'No'],
+			defaultId: 1,
+			cancelId: 1
+		}
 
 		dialog.showMessageBox(options).then((result) => {
-				// 0 === "Yes" button
-				if (result.response === 0) {
-					settingsWindow.hide();
-                } else {
-                    settingsWindow.show();
-                }
-            }
+			// 0 === "Yes" button
+			if (result.response === 0) {
+				settingsWindow.hide();
+			} else {
+				settingsWindow.show();
+			}
+		}
 		);
 	});
 });
@@ -94,7 +94,7 @@ function slider(name, value) {
 		value: value,
 		min: 1,
 		max: 60,
-		slide: function(event, ui) {
+		slide: function (event, ui) {
 			$('span.' + name).html(ui.value);
 		}
 	});
