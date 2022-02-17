@@ -1,7 +1,7 @@
 'use strict';
 
 const { remote, ipcRenderer } = require('electron');
-const { dialog, globalShortcut, BrowserWindow } = remote;
+const { globalShortcut, BrowserWindow } = remote;
 const path = require('path');
 
 const HRT = require('human-readable-time');
@@ -35,31 +35,20 @@ ipcRenderer.on('update-timer', function (event, value) {
 });
 
 ipcRenderer.on('end-timer', function () {
+
+	new Audio('notification.mp3').play();
 	const isRelaxTime = remote.getGlobal('isRelaxTime');
 
 	circleTimer.value = 1;
 
-	dialog.showMessageBox(
-		{
-			type: 'info',
-			title: 'Pomodoro',
-			message: isRelaxTime
-				? 'Timer ended it\'s time to relax'
-				: 'Back to work',
-			buttons: ['OK'],
-			noLink: true
-		},
-		function () {
-			if (isRelaxTime) {
-				circleTimer.mode = 'work';
-			} else {
-				$('#counter').text(remote.getGlobal('pomodoroCount'));
-				circleTimer.mode = 'relax';
-			}
+	if (isRelaxTime) {
+		circleTimer.mode = 'work';
+	} else {
+		$('#counter').text(remote.getGlobal('pomodoroCount'));
+		circleTimer.mode = 'relax';
+	}
 
-			ipcRenderer.send('toggle-timer');
-		}
-	);
+	ipcRenderer.send('toggle-timer');
 });
 
 $(document).ready(function () {
